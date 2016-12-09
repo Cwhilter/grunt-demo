@@ -112,6 +112,5 @@ module.exports=function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	//个人觉得单页面文件或单组件合适的顺序为clean->copy->concat->sprite->uglify
 	grunt.registerTask('build',['clean','copy','concat','sprite','uglify:js','cssmin:css']);
-	grunt.registerTask('css',['clean:css','concat:css','cssmin:css']);
 	grunt.registerTask('default',['jshint']);
 };

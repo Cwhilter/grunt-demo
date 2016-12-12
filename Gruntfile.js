@@ -5,6 +5,13 @@ module.exports=function(grunt){
 			'./src/js/*.js',
 			'Gruntfile.js'
 		],
+		less:{
+			compile:{
+				files:{
+					'./src/css/style.css':'./src/css/style.less'
+				}
+			}
+		},
 		//文件打包
 		concat:{
 			css:{
@@ -102,6 +109,7 @@ module.exports=function(grunt){
 			}
 		}
 	});
+	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-css-sprite');
 	grunt.loadNpmTasks('grunt-contrib-watch');
@@ -111,6 +119,6 @@ module.exports=function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	//个人觉得单页面文件或单组件合适的顺序为clean->copy->concat->sprite->uglify
-	grunt.registerTask('build',['clean','copy','concat','sprite','uglify:js','cssmin:css']);
+	grunt.registerTask('build',['clean','less','copy','concat','sprite','uglify:js','cssmin:css']);
 	grunt.registerTask('default',['jshint']);
 };

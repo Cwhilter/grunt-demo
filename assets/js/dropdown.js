@@ -137,12 +137,3 @@ EventUtil.addHandler(window,"load",function(event){
 			}	
 		})();
 });
-var value;
-function test(){
-	var value;
-	console.log(typeof value);
-	console.log(value);
-	value=3;
-}
-value=2;
-test();

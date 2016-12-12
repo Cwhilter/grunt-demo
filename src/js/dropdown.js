@@ -1,5 +1,4 @@
 /*跨浏览器事件(使用DOM2级事件)*/
-'use strict';
 var EventUtil={
 	addHandler:function(element,type,handler){
 		if(element.addEventListener){
@@ -39,49 +38,39 @@ EventUtil.addHandler(window,"load",function(event){
 			function changeStyle(){
 				return function(){
 					var ul=this.querySelector("ul");
-					var span=this.querySelector("span");
+					span=this.querySelector("span");
 					if(!ul.style.display||ul.style.display=="none"){			
 						span.className="glyphicon glyphicon-chevron-up";
 						ul.style.display="block";
-						if(this.className=="dropdown-table"){
-							this.className="dropdown-table open";
-						}
-						else{
-							this.className="dropdown-table2 open";
-						}
+						this.className=(this.className=="dropdown-table")?"dropdown-table open":"dropdown-table2 open";
+						
 					}else{
 						span.className="glyphicon glyphicon-chevron-down";
 						ul.style.display="none";
-						if(this.className=="dropdown-table open"){
-							this.className="dropdown-table";
-						}
-						else{
-							this.className="dropdown-table2";
-						}
+						this.className=(this.className=="dropdown-table open")?"dropdown-table":"dropdown-table2";
 						
 					}
 					var li=this.querySelectorAll("li.dropdown-table2");
-					console.log(li);
-					for(var i=0;i<li.length;i++){
-						EventUtil.addHandler(li[i],"click",stopPropagation());	
-					}	
+					li.forEach(function(item,index,array){
+						EventUtil.addHandler(item,"click",stopPropagation());
+					});
 					li=this.querySelectorAll("li.dropdown-table3");
-					console.log(li);
-					for(i=0;i<li.length;i++){
-						EventUtil.addHandler(li[i],"click",stopPropagation());	
-					}		
+					
+					li.forEach(function(item,index,array){
+						EventUtil.addHandler(item,"click",stopPropagation());
+					});	
 				};
 			}
 			var list=document.querySelectorAll(".dropdown-table");
-			for(var i=0;i<list.length;i++){
-				EventUtil.addHandler(list[i],"click",changeStyle());
-				EventUtil.addHandler(list[i],"click",stopPropagation());	
-		    }
+			list.forEach(function(item,index,array){
+				EventUtil.addHandler(item,"click",changeStyle());
+				EventUtil.addHandler(item,"click",stopPropagation());
+			});
 		    list=document.querySelectorAll(".dropdown-table2");
-			for(i=0;i<list.length;i++){
-				EventUtil.addHandler(list[i],"click",changeStyle());
-				EventUtil.addHandler(list[i],"click",stopPropagation());	
-		    }
+		    list.forEach(function(item,index,array){
+				EventUtil.addHandler(item,"click",changeStyle());
+				EventUtil.addHandler(item,"click",stopPropagation());
+			});
 		    //全部产品按钮
 		    var btn_all=document.querySelector(".dropdown-header");
 		    EventUtil.addHandler(btn_all,"click",function(){
@@ -94,12 +83,12 @@ EventUtil.addHandler(window,"load",function(event){
 		    		div.style.display="none";
 		    	}
 		    	var li=this.querySelectorAll("li");
-		    	for(var i=0;i<li.length;i++){
-						EventUtil.addHandler(li[i],"click",stopPropagation());	
-				
-				}	
+		    	li.forEach(function(item,index,array){
+						EventUtil.addHandler(item,"click",stopPropagation());
+					});	
 		    });
 		})();
+		//根据URL保持对应的导航打开状态
 		(function(){
 			var href=location.href;
 			var div=document.querySelector(".dropdown");
@@ -119,19 +108,12 @@ EventUtil.addHandler(window,"load",function(event){
 				par.className+=" dropdown-table-active";
 				for(var node=a.parentNode.parentNode;node.className!="dropdown";node=node.parentNode){
 					if(node.nodeName==="UL"){
-						node.style.display="block";
-						console.log(node);
+						node.style.display="block";						
 					}
-					if(node.nodeName==="LI"){
-						
+					if(node.nodeName==="LI"){						
 						var span=node.querySelector("span");
 						span.className="glyphicon glyphicon-chevron-up";
-						if(node.className=="dropdown-table"){
-							node.className="dropdown-table open";
-						}
-						else{
-							node.className="dropdown-table2 open";
-						}
+						node.className=(node.className=="dropdown-table")?"dropdown-table open":"dropdown-table2 open";
 					}
 				}
 			}	
